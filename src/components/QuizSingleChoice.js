@@ -1,0 +1,276 @@
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import QuizComponent from "./QuizComponent";
+import { useLocation } from "react-router-dom";
+import QuizNavbar from "./QuizNavbar";
+import QuizFooter from "./QuizFooter";
+import Button from "react-bootstrap/esm/Button";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  addAns1,
+  addAns2,
+  addAns3,
+  addAns4,
+  addAnswers,
+} from "../redux/slices/quizAnswersSlice";
+import { addCounter, eraseCounter } from "../redux/slices/counterSlice";
+import {
+  countAns,
+  decreaseCount,
+  resetCount,
+} from "../redux/slices/countAnsSlice";
+import { current } from "@reduxjs/toolkit";
+
+export default function QuizSingleChoice(props) {
+  const { state } = useLocation();
+  const langName = state.langName;
+  const quizType = state.quizType;
+  console.log(langName);
+  console.log(quizType);
+
+  const dispatch = useDispatch();
+
+  // const stateRef = useRef("");
+  // const [s, setS] = useState(stateRef);
+  // console.log("sssssss", s);
+
+  const [singleData, setSingleData] = useState([]);
+  console.log(singleData);
+
+  // const ans = useSelector((state) => state.quizAnswers.ans1);
+  // console.log("anssss", ans);
+  // const ans1 = useSelector((state) => state.quizAnswers.ans2);
+  // console.log("ansss5s", ans1);
+  const handleResponse = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/single/${langName}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const json = await response.json();
+      if (!json) {
+        console.log("error");
+      } else {
+        console.log(json);
+        setSingleData([json.data]);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const [radioName, setRadioName] = useState({
+    name1: "",
+    name2: "",
+    name3: "",
+    name4: "",
+  });
+  console.log(radioName);
+
+  const handleAnswers = () => {
+    singleData.map((item) => {
+      return item.map((data, id) => {
+        if (id === 0) {
+          dispatch(addAns1(data.answer));
+        } else if (id === 1) {
+          console.log(id);
+          dispatch(addAns2(data.answer));
+        } else if (id === 2) {
+          dispatch(addAns3(data.answer));
+        } else if (id === 3) {
+          dispatch(addAns4(data.answer));
+        }
+      });
+    });
+  };
+
+  const selectedAnswers = useSelector((state) => state.singleQuiz);
+
+  const [ans, setAns] = useState({
+    ans1: selectedAnswers.quiz0,
+    ans2: selectedAnswers.quiz1,
+    ans3: selectedAnswers.quiz2,
+    ans4: selectedAnswers.quiz3,
+  });
+
+  console.log("selectdanswers", selectedAnswers.quiz0);
+  console.log("answersss", ans);
+
+  // const handleCount = () => {
+  //   dispatch(countAns())
+  // };
+
+  // const [correctAnswers, setCorrectAnswers] = useState([]);
+  // console.log("correct", correctAnswers);
+
+  // const hand = (data) => {
+  //   setCorrectAnswers([...correctAnswers, data]);
+  // };
+  // const handleCorrectAns = async () => {
+  //   console.log("OUTSIDE");
+  //   if (selectedAnswers) {
+  //     console.log("INSIDE");
+  //     if (quiz0 == ans1) {
+  //       console.log("MDSNJ");
+  //       return hand(quiz0);
+  //     }
+  //     else if (quiz1 == ans2) {
+  //       console.log(quiz1, "jksjxsb");
+  //       return hand(quiz1);
+  //     }
+  //     else if (quiz2 == ans3) {
+  //       return hand(quiz2);
+  //     }
+  //     else if (quiz3 == ans4) {
+  //       return hand(quiz3);
+  //     } else {
+  //       return correctAnswers;
+  //     }
+  //   } else {
+  //     return correctAnswers;
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   handleCorrectAns();
+  // }, [selectedAnswers]);
+
+  useEffect(() => {
+    handleResponse();
+    handleAnswers();
+  }, []);
+
+  const [counting, setCounting] = useState();
+  console.log("COUNTT", counting);
+
+  const validateSelectedAnswers = async () => {
+    if (
+      selectedAnswers.quiz0 !== "" &&
+      selectedAnswers.quiz1 !== "" &&
+      selectedAnswers.quiz2 !== "" &&
+      selectedAnswers.quiz3 !== ""
+    ) {
+      try {
+        const response = await fetch(`http://localhost:5000/api/checkAnswers`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ans1: selectedAnswers.quiz0,
+            ans2: selectedAnswers.quiz1,
+            ans3: selectedAnswers.quiz2,
+            ans4: selectedAnswers.quiz3,
+          }),
+        });
+        const res = await response.json();
+        if (!res) {
+          console.log("ERRR");
+        } else {
+          return setCounting(res.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    validateSelectedAnswers();
+  }, [selectedAnswers]);
+
+  if (counting) {
+    var val = counting.reduce((prev, curr) => prev + curr);
+    console.log("VALUEE", val);
+  } else {
+    console.log("no count");
+  }
+
+  const counter = useSelector((state) => state.countAnswer.count);
+
+  const [idx, setIdx] = useState(0);
+
+  console.log(counter);
+  useEffect(() => {
+    setIdx(counter);
+  }, [counter]);
+  return (
+    <div>
+      <div>
+        <QuizNavbar />
+      </div>
+      <div className="mt-5">
+        <h2>
+          {langName} {quizType} selection MCQ
+        </h2>
+      </div>
+      <div>
+        {singleData.map((item) => {
+          return item.map((data, id) => {
+            return (
+              <div>
+                {id === idx && id < 5 ? (
+                  <div>
+                    <QuizComponent
+                      title="HTML"
+                      question={data.question}
+                      options={data.options}
+                      answer={data.answer}
+                      quizType={quizType}
+                      radioName={
+                        id === 0
+                          ? "quiz0"
+                          : id === 1
+                          ? "quiz1"
+                          : id === 2
+                          ? "quiz2"
+                          : id === 3
+                          ? "quiz3"
+                          : "quiz0"
+                      }
+                    />
+                    <div>
+                      {idx > 0 ? (
+                        <div>
+                          <button onClick={() => dispatch(decreaseCount(1))}>
+                            Previous
+                          </button>
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                      <div>
+                        <button onClick={() => dispatch(countAns(1))}>
+                          Next
+                        </button>
+                      </div>
+                    </div>
+                    {id === 4 ? (
+                      <div className="mt-5">
+                        <Link to="/CountResult" state={{ result: val }}>
+                          SUBMIT
+                        </Link>{" "}
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
+            );
+          });
+        })}
+      </div>{" "}
+      <div className="mt-5">
+        <QuizFooter />
+      </div>
+    </div>
+  );
+}
