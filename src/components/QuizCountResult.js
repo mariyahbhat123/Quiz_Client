@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addCounter, eraseCounter } from "../redux/slices/counterSlice";
 import { useLocation } from "react-router-dom";
+import QuizNavbar from "./QuizNavbar";
+import QuizFooter from "./QuizFooter";
 
 export default function QuizCountResult() {
   const dispatch = useDispatch();
@@ -9,18 +11,30 @@ export default function QuizCountResult() {
   const counter = state.result;
   return (
     <div>
+      <div>
+        <QuizNavbar />
+      </div>
       <div
         style={{
           display: "flex",
           justifyContent: "center",
-          marginTop: "30%",
+          marginTop: "10%",
+          marginBottom: "10%",
         }}
       >
         {" "}
         <div
-          style={{ width: "60%", border: "1px solid black", padding: "25px" }}
+          style={{
+            width: "50%",
+            border: "2px solid #7f9d9d",
+            padding: "30px",
+            backgroundColor: "#bdd7d6",
+            fontFamily: "serif",
+          }}
         >
-          <h5>Quiz Result</h5>
+          <div>
+            <h5 style={{ fontWeight: "bold" }}>Quiz Result</h5>
+          </div>
           <div
             className="d-flex"
             style={{ flexDirection: "row", justifyContent: "space-between" }}
@@ -43,6 +57,9 @@ export default function QuizCountResult() {
             <h4 className="ms-5">4</h4>
           </div>
         </div>
+      </div>
+      <div style={{ backgroundColor: "#7f9d9d", padding: "15px" }}>
+        <QuizFooter />
       </div>
     </div>
   );

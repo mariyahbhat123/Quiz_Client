@@ -2,6 +2,7 @@ import React from "react";
 import QuizNavbar from "../components/QuizNavbar";
 import QuizFooter from "../components/QuizFooter";
 import QuizProgrmmmingLinks from "../components/QuizProgrmmmingLinks";
+import "../styles/LandingPage.css";
 
 export default function LandingPage() {
   //validation front end back end
@@ -16,9 +17,10 @@ export default function LandingPage() {
       <body>
         <QuizProgrmmmingLinks />
       </body>
-      <footer className="mt-4">
+
+      <div className="footerQuiz mt-4">
         <QuizFooter />
-      </footer>
+      </div>
     </div>
   );
 }

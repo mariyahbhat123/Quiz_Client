@@ -1,0 +1,23 @@
+.navDrop:hover {
+  background-color: #bdd7d6;
+}
+.footerQuiz {
+  background-color: #7f9d9d;
+  font-family: serif;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+.iconDiv {
+  border: 2px solid #bdd7d6;
+  padding: 5px;
+  border-radius: 50px;
+  background-color: #bdd7d6;
+  margin-right: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.linkFooter {
+  margin-right: 15px;
+  color: black;
+  text-decoration: none;
+}

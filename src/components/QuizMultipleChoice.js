@@ -5,6 +5,9 @@ import QuizNavbar from "./QuizNavbar";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { countAns, decreaseCount } from "../redux/slices/countAnsSlice";
+import QuizFooter from "./QuizFooter";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 
 export default function QuizMultipleChoice() {
   const { state } = useLocation();
@@ -122,7 +125,7 @@ export default function QuizMultipleChoice() {
   }, [counter]);
 
   return (
-    <div>
+    <div style={{ fontFamily: "serif" }}>
       <div>
         <QuizNavbar />
       </div>
@@ -183,50 +186,56 @@ export default function QuizMultipleChoice() {
                                 border: "2px solid #516365",
                               }}
                             >
+                              <NavigateBeforeIcon />
                               Previous
                             </button>
                           </div>
                         ) : (
                           ""
                         )}
-                        <div
-                          style={
-                            idx < 1
-                              ? {
-                                  width: "100%",
-                                  display: "flex",
-                                  justifyContent: "flex-end",
-                                }
-                              : { width: "20%" }
-                          }
-                        >
-                          <button
-                            onClick={() => dispatch(countAns(1))}
+                        {idx < 3 ? (
+                          <div
                             style={
-                              idx >= 1
+                              idx < 1
                                 ? {
                                     width: "100%",
-                                    padding: "6%",
-                                    borderRadius: "50px",
-                                    backgroundColor: "#7f9d9d",
-                                    border: "2px solid #516365",
+                                    display: "flex",
+                                    justifyContent: "flex-end",
                                   }
-                                : {
-                                    width: "20%",
-                                    padding: "1%",
-                                    borderRadius: "50px",
-                                    backgroundColor: "#7f9d9d",
-                                    border: "2px solid #516365",
-                                  }
+                                : { width: "20%" }
                             }
                           >
-                            Next
-                          </button>
-                        </div>
+                            <button
+                              onClick={() => dispatch(countAns(1))}
+                              style={
+                                idx >= 1
+                                  ? {
+                                      width: "100%",
+                                      padding: "6%",
+                                      borderRadius: "50px",
+                                      backgroundColor: "#7f9d9d",
+                                      border: "2px solid #516365",
+                                    }
+                                  : {
+                                      width: "20%",
+                                      padding: "1%",
+                                      borderRadius: "50px",
+                                      backgroundColor: "#7f9d9d",
+                                      border: "2px solid #516365",
+                                    }
+                              }
+                            >
+                              Next
+                              <NavigateNextIcon />
+                            </button>
+                          </div>
+                        ) : (
+                          ""
+                        )}
                       </div>
                     </div>
                     {id === 3 ? (
-                      <div div>
+                      <div>
                         <div>
                           <p>Submit to see results..</p>
                         </div>
@@ -241,6 +250,7 @@ export default function QuizMultipleChoice() {
                               padding: "8px",
                               backgroundColor: "#7f9d9d",
                               color: "black",
+                              borderRadius: "50px",
                             }}
                           >
                             <Link
@@ -264,6 +274,9 @@ export default function QuizMultipleChoice() {
             );
           });
         })}
+      </div>
+      <div className="mt-5" style={{ backgroundColor: "#7f9d9d" }}>
+        <QuizFooter />
       </div>
     </div>
   );

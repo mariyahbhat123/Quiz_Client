@@ -19,7 +19,8 @@ import {
   decreaseCount,
   resetCount,
 } from "../redux/slices/countAnsSlice";
-import { current } from "@reduxjs/toolkit";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 
 export default function QuizSingleChoice(props) {
   const { state } = useLocation();
@@ -200,7 +201,7 @@ export default function QuizSingleChoice(props) {
     setIdx(counter);
   }, [counter]);
   return (
-    <div>
+    <div style={{ fontFamily: "serif" }}>
       <div>
         <QuizNavbar />
       </div>
@@ -234,27 +235,109 @@ export default function QuizSingleChoice(props) {
                           : "quiz0"
                       }
                     />
-                    <div>
-                      {idx > 0 ? (
-                        <div>
-                          <button onClick={() => dispatch(decreaseCount(1))}>
-                            Previous
-                          </button>
-                        </div>
-                      ) : (
-                        ""
-                      )}
-                      <div>
-                        <button onClick={() => dispatch(countAns(1))}>
-                          Next
-                        </button>
+
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: "40%",
+                          padding: "2%",
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        {idx > 0 ? (
+                          <div style={{ width: "20%" }}>
+                            <button
+                              onClick={() => dispatch(decreaseCount(1))}
+                              style={{
+                                width: "100%",
+                                padding: "6%",
+                                borderRadius: "50px",
+                                backgroundColor: "#7f9d9d",
+                                border: "2px solid #516365",
+                              }}
+                            >
+                              {" "}
+                              <NavigateBeforeIcon />
+                              Previous
+                            </button>
+                          </div>
+                        ) : (
+                          ""
+                        )}
+                        {idx < 3 ? (
+                          <div
+                            style={
+                              idx < 1
+                                ? {
+                                    width: "100%",
+                                    display: "flex",
+                                    justifyContent: "flex-end",
+                                  }
+                                : { width: "20%" }
+                            }
+                          >
+                            <button
+                              onClick={() => dispatch(countAns(1))}
+                              style={
+                                idx >= 1
+                                  ? {
+                                      width: "100%",
+                                      padding: "6%",
+                                      borderRadius: "50px",
+                                      backgroundColor: "#7f9d9d",
+                                      border: "2px solid #516365",
+                                    }
+                                  : {
+                                      width: "20%",
+                                      padding: "1%",
+                                      borderRadius: "50px",
+                                      backgroundColor: "#7f9d9d",
+                                      border: "2px solid #516365",
+                                    }
+                              }
+                            >
+                              Next <NavigateNextIcon />
+                            </button>
+                          </div>
+                        ) : (
+                          ""
+                        )}
                       </div>
                     </div>
-                    {id === 4 ? (
-                      <div className="mt-5">
-                        <Link to="/CountResult" state={{ result: val }}>
-                          SUBMIT
-                        </Link>{" "}
+                    {id === 3 ? (
+                      <div className="">
+                        <div>
+                          <p>Submit to see results..</p>
+                        </div>
+                        <div
+                          className=""
+                          style={{ display: "flex", justifyContent: "center" }}
+                        >
+                          <div
+                            style={{
+                              border: "2px solid #516365",
+                              width: "10%",
+                              padding: "8px",
+                              backgroundColor: "#7f9d9d",
+                              color: "black",
+                              borderRadius: "50px",
+                            }}
+                          >
+                            <Link
+                              to="/CountResult"
+                              state={{ result: val }}
+                              style={{ color: "black", textDecoration: "none" }}
+                            >
+                              SUBMIT
+                            </Link>{" "}
+                          </div>
+                        </div>
                       </div>
                     ) : (
                       ""
@@ -268,7 +351,7 @@ export default function QuizSingleChoice(props) {
           });
         })}
       </div>{" "}
-      <div className="mt-5">
+      <div className="mt-5" style={{ backgroundColor: "#7f9d9d" }}>
         <QuizFooter />
       </div>
     </div>
