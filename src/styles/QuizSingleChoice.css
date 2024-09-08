@@ -1,0 +1,36 @@
+.quizType {
+  font-size: 25px;
+}
+.btnIdLess {
+  width: 100%;
+  padding: 6%;
+  border-radius: 50px;
+  background-color: #7f9d9d;
+  border: 2px solid #516365;
+}
+.btnIdMore {
+  width: 20%;
+  padding: 1%;
+  border-radius: 50px;
+  background-color: #7f9d9d;
+  border: 2px solid #516365;
+}
+.btnPrevious {
+  width: 100%;
+  padding: 6%;
+  border-radius: 50px;
+  background-color: #7f9d9d;
+  border: 2px solid #516365;
+}
+@media only screen and (width<=450px) {
+  .quizType {
+    font-size: 23px;
+  }
+  .btnIdMore {
+    width: 52%;
+    padding: 1%;
+    border-radius: 50px;
+    background-color: #7f9d9d;
+    border: 2px solid #516365;
+  }
+}

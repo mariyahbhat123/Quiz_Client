@@ -21,6 +21,7 @@ import {
 } from "../redux/slices/countAnsSlice";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
+import "../styles/QuizSingleChoice.css";
 
 export default function QuizSingleChoice(props) {
   const { state } = useLocation();
@@ -206,7 +207,7 @@ export default function QuizSingleChoice(props) {
         <QuizNavbar />
       </div>
       <div className="mt-5">
-        <h2>
+        <h2 className="quizType">
           {langName} {quizType} selection MCQ
         </h2>
       </div>
@@ -253,14 +254,8 @@ export default function QuizSingleChoice(props) {
                         {idx > 0 ? (
                           <div style={{ width: "20%" }}>
                             <button
+                              className="btnPrevious"
                               onClick={() => dispatch(decreaseCount(1))}
-                              style={{
-                                width: "100%",
-                                padding: "6%",
-                                borderRadius: "50px",
-                                backgroundColor: "#7f9d9d",
-                                border: "2px solid #516365",
-                              }}
                             >
                               {" "}
                               <NavigateBeforeIcon />
@@ -283,24 +278,9 @@ export default function QuizSingleChoice(props) {
                             }
                           >
                             <button
+                              className={idx >= 1 ? "btnIdLess" : "btnIdMore"}
                               onClick={() => dispatch(countAns(1))}
-                              style={
-                                idx >= 1
-                                  ? {
-                                      width: "100%",
-                                      padding: "6%",
-                                      borderRadius: "50px",
-                                      backgroundColor: "#7f9d9d",
-                                      border: "2px solid #516365",
-                                    }
-                                  : {
-                                      width: "20%",
-                                      padding: "1%",
-                                      borderRadius: "50px",
-                                      backgroundColor: "#7f9d9d",
-                                      border: "2px solid #516365",
-                                    }
-                              }
+                              style={idx >= 1 ? {} : {}}
                             >
                               Next <NavigateNextIcon />
                             </button>

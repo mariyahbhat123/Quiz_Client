@@ -1,3 +1,26 @@
 .divBox:hover {
   background-color: #bdd7d6;
 }
+
+.quizQuestion {
+  font-size: 20px;
+}
+.formContainer {
+  width: 40%;
+
+  font-size: 20px;
+  text-align: left;
+}
+
+@media only screen and (width<=450px) {
+  .quizQuestion {
+    font-size: 17px;
+    font-family: serif;
+  }
+  .divBox {
+    width: 100%;
+  }
+  .formContainer {
+    width: 80%;
+  }
+}

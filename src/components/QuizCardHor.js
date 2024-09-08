@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import "../styles/QuizCarHor.css";
 
 export default function QuizCardHor(props) {
   const quizName = props.quizName;
@@ -14,65 +15,47 @@ export default function QuizCardHor(props) {
 
   return (
     <div className="mt-5" style={{ display: "flex", justifyContent: "center" }}>
-      <Card
-        className="text-center"
-        style={{
-          width: "60%",
-          border: "2px solid  #7f9d9d",
-          fontFamily: "serif",
-        }}
-      >
+      <Card className="cardParentContainer text-center">
         <Card.Header style={{ backgroundColor: "#bdd7d6" }}>
           <h4>{quizName} QUIZ</h4>
         </Card.Header>
-        <Card.Body>
-          <div style={{ display: "flex", flexDirection: "row" }}>
-            <div style={{ width: "40%" }}>
-              <Card.Img src={image} style={{ width: width, height: height }} />
+        <Card.Body className="cardBodyContainer">
+          <div className="cardBody">
+            <div className="cardImageContainer">
+              <Card.Img
+                className="cardImage"
+                src={image}
+                style={{ width: width, height: height }}
+              />
             </div>
 
-            <div style={{ width: "60%" }}>
+            <div className="cardTextContainer" style={{ width: "60%" }}>
               <Card.Text>{text}</Card.Text>{" "}
             </div>
           </div>
         </Card.Body>
-        <Card.Footer
-          style={{
-            backgroundColor: "#bdd7d6",
-            display: "flex",
-            justifyContent: "space-evenly",
-            padding: "2%",
-          }}
-        >
+        <Card.Footer className="cardFooterContainer">
           <Link
-            className=""
+            className="cardLink"
             to="/Single"
             state={{
               langName: langName,
               quizType: "single",
             }}
-            style={{
-              textDecoration: "none",
-              color: "black",
-              fontWeight: "bold",
-            }}
           >
-            <ArrowForwardIcon /> Single Selection Quiz
+            <ArrowForwardIcon className="cardArrowIcon" /> Single Selection Quiz
           </Link>
 
           <Link
+            className="cardLink"
             to="/Multiple"
             state={{
               langName: langName,
               quizType: "multiple",
             }}
-            style={{
-              textDecoration: "none",
-              color: "black",
-              fontWeight: "bold",
-            }}
           >
-            <ArrowForwardIcon /> Multiple Selection Quiz
+            <ArrowForwardIcon className="cardArrowIcon" /> Multiple Selection
+            Quiz
           </Link>
         </Card.Footer>
       </Card>

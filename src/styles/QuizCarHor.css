@@ -1,0 +1,63 @@
+.cardParentContainer {
+  width: 60%;
+  border: 2px solid #7f9d9d !important;
+  font-family: serif;
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: row;
+}
+.cardImageContainer {
+  width: 40%;
+}
+.cardFooterContainer {
+  background-color: #bdd7d6 !important;
+  display: flex !important;
+  justify-content: space-evenly !important;
+  padding: 2% !important;
+}
+.cardLink {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  font-size: 20px;
+}
+.cardArrowIcon {
+  font-size: 24px !important;
+}
+.cardLink:hover {
+  color: white;
+  border-bottom: 2px solid white;
+}
+@media only screen and (width<=450px) {
+  .cardParentContainer {
+    width: 90%;
+    border: 2px solid #7f9d9d;
+  }
+  .cardBody {
+    display: flex;
+    flex-direction: column;
+  }
+  .cardImageContainer {
+    width: 100%;
+    height: 20vh;
+  }
+  .cardTextContainer {
+    display: none;
+  }
+  .cardFooterContainer {
+    display: flex !important;
+    justify-content: space-between !important;
+  }
+  .cardLink {
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    font-size: 15px;
+  }
+  .cardArrowIcon {
+    font-size: 18px !important;
+    font-weight: 400 !important;
+  }
+}

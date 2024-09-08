@@ -283,20 +283,13 @@ export default function (props) {
 
   return (
     <div>
-      <div className="mt-5">
-        <h4>Q. {question}</h4>
+      <div className=" mt-5">
+        <h4 className="quizQuestion">Q. {question}</h4>
         <div
           className="mt-4"
           style={{ display: "flex", justifyContent: "center" }}
         >
-          <div
-            style={{
-              width: "40%",
-              // border: "2px solid #516365",
-              fontSize: "20px",
-              textAlign: "left",
-            }}
-          >
+          <div className="formContainer">
             {" "}
             {quizType === "single" ? (
               <form>
